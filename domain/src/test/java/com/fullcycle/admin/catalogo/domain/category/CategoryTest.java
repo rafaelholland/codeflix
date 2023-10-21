@@ -136,4 +136,36 @@ public class CategoryTest {
         assertNotNull(actualCategory.getUpdatedAt());
         assertNotNull(actualCategory.getDeletedAt());
     }
+
+    @Test
+    void givenAValidCategory_whenCallUpdate_thenReturnCategoryUpdated() {
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = true;
+        final Category category =
+                Category.newCategory("Film", "A catgoria", expectedIsActive);
+
+        final var actualCategory =
+                category.update(expectedName, expectedDescription, expectedIsActive);
+
+        assertEquals(expectedName, actualCategory.getName());
+        assertEquals(expectedDescription, actualCategory.getDescription());
+
+    }
+
+    @Test
+    void givenAValidCategory_whenUpdateToInactive_thenReturnCategoryUpdated() {
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsActive = false;
+        final Category category =
+                Category.newCategory("Film", "A catgoria", true);
+
+        final var actualCategory =
+                category.update(expectedName, expectedDescription, expectedIsActive);
+
+        assertEquals(expectedName, actualCategory.getName());
+        assertEquals(expectedDescription, actualCategory.getDescription());
+        assertFalse(actualCategory.isActive());
+    }
 }
